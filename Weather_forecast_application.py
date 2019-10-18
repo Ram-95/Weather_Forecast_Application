@@ -1,6 +1,7 @@
 #Weather Forecast Application - Python
 
 #Necessary Modules
+from prettytable import PrettyTable
 import requests
 import bs4 as bs
 import datetime
@@ -39,10 +40,12 @@ for i in range(3):
         sys.exit(8)
 
 
-print('Weather Forecast for {}'.format(area.title()))
-print('-'*35)
+print('\nWeather Forecast for {}:'.format(area.title()))
+table = PrettyTable(['Date', 'Max/Min Temp.', 'Weather Conditions', 'Feels Like'])
 for i in weather_details:
-    print(i, *weather_details[i])
+    table.add_row([i, *weather_details[i]])
+
+print(table)
 
 
 
