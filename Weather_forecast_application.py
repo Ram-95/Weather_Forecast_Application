@@ -1,12 +1,5 @@
-#Weather Scrapper - Python
-'''
-Sources: https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python
-1. Take in the country name and city name.
-2. Store the dates as keys in a dictionary. Values should contain a dict that
-contains the (Min, max, feels like, weather description - cloudy etc.,)
-{date: {min:15, max: 19, feels_like: 17, weather_desc: Cloudy}}
-3. Print the data.
-'''
+#Weather Forecast Application - Python
+
 #Necessary Modules
 import requests
 import bs4 as bs
