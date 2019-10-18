@@ -9,4 +9,4 @@ The weather details include:
   3. Feels like
   4. Weather - Sunny, Cloudy, Windy etc.,
   
- Note: This script only works for Popular Indian Locations.
+ Note: This script returns the weather forecast for Popular Indian Locations only.
