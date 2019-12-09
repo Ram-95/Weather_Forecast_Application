@@ -10,6 +10,7 @@ import Balloon_tip as Bt
 
 #Dictionary to store the Weather Details. Date as Keys and details as the value stored as a list.
 weather_details = {}
+countries = {1: 'India', 2: 'Japan', 3: 'USA', 4: 'UK', 5: 'Russia', 6: 'Japan', 7: 'France'}
 
 #Current Date
 curr_date = datetime.datetime.now().strftime("%d-%b-%Y")
@@ -17,12 +18,27 @@ date_1 = datetime.datetime.strptime(curr_date, "%d-%b-%Y")
 
 #Using a browser Agent
 headers = {"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"}
-area = input('Enter an Indian Location: ').strip().lower()
+for i in countries:
+    print('{}. {}'.format(i, countries[i]))
+
+#Selecting the Countries
+while True:
+    nation = int(input('\nChoose any one of the above Countries: \n'))
+    if nation in countries.keys():
+        break
+    else:
+        print('\n**** PLEASE CHOOSE A VALID COUNTRY. ****')
+        for i in countries:
+            print('{}. {}'.format(i, countries[i]))
+
+nation = countries[nation]
+
+area = input('Enter a Location in {}: '.format(nation)).strip().lower()
 time_period = int(input('Enter the No. of Days [1-14]: '))
 time_period = 3 if time_period <= 0 or time_period > 14 else time_period
 
 #Getting the webpage of the URL
-url = 'https://www.timeanddate.com/weather/india/' + area + '/ext'
+url = 'https://www.timeanddate.com/weather/' + nation + '/' + area + '/ext'
 response = requests.get(url, headers = headers)
 html = response.text
 
@@ -43,17 +59,17 @@ for i in range(time_period):
         sys.exit(8)
 
 #Putting the data into a PrettyTable table
-print('\n{}-Day Weather Forecast for {}:'.format(time_period, area.title()))
+print('\n{}-Day Weather Forecast for {}, {}:'.format(time_period, area.title(), nation))
 table = PrettyTable(['Date', 'Max/Min Temp.', 'Weather Conditions', 'Feels Like'])
 for i in weather_details:
     table.add_row([i, *weather_details[i]])
 
-
+#Printing the final table
 print(table)
 
+
 #This Part of code is used to show a desktop notification. It only shows the current day weather for the choosen location.
-'''
-Bt.balloon_tip('Weather Update - ' + area.title(),'Min/Max Temp: {}\nWeather: {}\nFeels Like: {}'
+Bt.balloon_tip('Today\'s Weather Update - ' + area.title() + ', ' + nation,'Min/Max Temp: {}\nWeather: {}\nFeels Like: {}'
                .format(weather_details[curr_date][0], weather_details[curr_date][1],weather_details[curr_date][2]))
 
-'''
+
